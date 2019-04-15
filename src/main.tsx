@@ -4,6 +4,7 @@ import { createStores } from "app/stores";
 import { Provider } from "mobx-react";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import "./reset.css";
 
 const defaultExpenses = [
   new ExpenseModel("New book about Rust", 100, 22.82),
