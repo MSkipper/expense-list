@@ -4,7 +4,7 @@ import ConversionRate from "app/components/ConversionRate/ConversionRate";
 import { STORE_EXPENSES } from "app/constants";
 import { ExpensesStore } from "app/stores";
 import { inject, observer } from "mobx-react";
-import React, { Component } from "react";
+import React, { Component, ReactNode } from "react";
 import AddExpenseForm from "../AddExpenseForm/AddExpenseForm";
 import List from "../List/List";
 import Sum from "../Sum/Sum";
@@ -28,7 +28,7 @@ interface IAppProps {
 @inject(STORE_EXPENSES)
 @observer
 class App extends Component<IAppProps> {
-  public render() {
+  public render(): ReactNode {
     const expensesStore = this.props[STORE_EXPENSES];
 
     return (

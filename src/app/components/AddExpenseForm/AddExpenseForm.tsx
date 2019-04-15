@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField/TextField";
 import { convertToEUR, transformAmountToNumber } from "app/helpers/amount";
 import ExpenseModel from "app/models/ExpenseModel";
-import React, { ChangeEvent, Component, FormEvent } from "react";
+import React, { ChangeEvent, Component, FormEvent, ReactNode } from "react";
 
 const Container = styled("div")`width: 100%`;
 
@@ -26,21 +26,27 @@ interface IAddExpenseFormProps {
 interface IAddExpenseFormState {
   title: string;
   amount: string;
+  isSubmitted: boolean;
+}
+
+interface IErrors {
+  amount: boolean;
+  title: boolean;
 }
 
 class AddExpenseForm extends Component<IAddExpenseFormProps, IAddExpenseFormState> {
 
   private readonly minTitleLength = 5;
-  private errors = {
+  private errors: IErrors = {
     amount: false,
     title: false,
   };
-  private isSubmitted = false;
 
   constructor(props: IAddExpenseFormProps) {
     super(props);
     this.state = {
       amount: "",
+      isSubmitted: false,
       title: "",
     };
 
@@ -66,21 +72,20 @@ class AddExpenseForm extends Component<IAddExpenseFormProps, IAddExpenseFormStat
   }
 
   public addExpense(event: FormEvent<HTMLFormElement>): void {
-    this.isSubmitted = true;
+    this.setState({isSubmitted: true});
     if (this.errors.amount && this.errors.title) {
       const numberAmount = transformAmountToNumber(this.state.amount);
       this.props.addExpense(new ExpenseModel(this.state.title, numberAmount, convertToEUR(numberAmount,
         this.props.conversionRate)));
       this.clearForm();
     }
-    this.forceUpdate();
     event.preventDefault();
   }
 
-  public render() {
+  public render(): ReactNode {
     this.errors = this.validateForm(this.state.title, this.state.amount);
-    const amountValidation = this.errors.amount || !this.isSubmitted ? { display: "none" } : {};
-    const titleValidation = this.errors.title || !this.isSubmitted ? { display: "none" } : {};
+    const amountValidation = this.errors.amount || !this.state.isSubmitted ? { display: "none" } : {};
+    const titleValidation = this.errors.title || !this.state.isSubmitted ? { display: "none" } : {};
 
     return (
       <form onSubmit={this.addExpense} noValidate={true}>
@@ -114,19 +119,19 @@ class AddExpenseForm extends Component<IAddExpenseFormProps, IAddExpenseFormStat
     return titleRegex.test(title);
   }
 
-  private validateForm = (title: string, amount: string) => {
+  private validateForm = (title: string, amount: string): IErrors => {
     return {
       amount: amount.length > 0,
       title: title.length >= this.minTitleLength,
     };
   }
 
-  private clearForm() {
+  private clearForm(): void {
     this.setState({
       amount: "",
+      isSubmitted: false,
       title: "",
     });
-    this.isSubmitted = false;
   }
 }
 

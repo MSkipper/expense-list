@@ -2,7 +2,7 @@ import Button from "@material-ui/core/Button";
 import TableCell from "@material-ui/core/TableCell/TableCell";
 import TableRow from "@material-ui/core/TableRow/TableRow";
 import ExpenseModel from "app/models/ExpenseModel";
-import React, { Component } from "react";
+import React, { Component, ReactNode } from "react";
 
 interface IRowProps {
   expense: ExpenseModel;
@@ -15,7 +15,7 @@ class Row extends Component<IRowProps> {
     this.props.deleteAction(this.props.expense);
   }
 
-  public render() {
+  public render(): ReactNode {
     const props = this.props;
     return (
       <TableRow>

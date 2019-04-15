@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField/TextField";
 import { transformAmountToNumber } from "app/helpers/amount";
-import React, { ChangeEvent, Component, FormEvent } from "react";
+import React, { ChangeEvent, Component, FormEvent, ReactNode } from "react";
 
 const centerText = css`text-align: center;`;
 
@@ -41,7 +41,7 @@ class ConversionRate extends Component<IConversionRateProps, IConversionRateStat
     }
   }
 
-  public updateConversionRate(event: FormEvent<HTMLFormElement>) {
+  public updateConversionRate(event: FormEvent<HTMLFormElement>): void {
     const transformedConversationRate = transformAmountToNumber(this.state.conversionRate);
     if (transformedConversationRate > 0) {
       this.props.updateConversationRate(transformedConversationRate);
@@ -51,7 +51,7 @@ class ConversionRate extends Component<IConversionRateProps, IConversionRateStat
     event.preventDefault();
   }
 
-  public render() {
+  public render(): ReactNode {
     const conversionRate = this.props.conversionRate;
     return (
       <div css={centerText}>

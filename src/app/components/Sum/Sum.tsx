@@ -1,5 +1,5 @@
 import { IAmount } from "app/types/Amount";
-import React, { Component } from "react";
+import React, { Component, ReactNode } from "react";
 
 interface ISumProps {
   sum: IAmount;
@@ -7,7 +7,7 @@ interface ISumProps {
 
 class Sum extends Component<ISumProps> {
 
-  public render() {
+  public render(): ReactNode {
     const sum = this.props.sum;
     return (
       <h2>Sum: {sum.pln} PLN ({sum.eur} EUR)</h2>

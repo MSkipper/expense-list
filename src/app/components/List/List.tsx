@@ -7,7 +7,7 @@ import TableCell from "@material-ui/core/TableCell/TableCell";
 import TableHead from "@material-ui/core/TableHead/TableHead";
 import TableRow from "@material-ui/core/TableRow/TableRow";
 import ExpenseModel from "app/models/ExpenseModel";
-import React, { Component } from "react";
+import React, { Component, ReactNode } from "react";
 import Row from "../Row/Row";
 
 const H1 = styled("h1")`text-align:center`;
@@ -19,7 +19,7 @@ interface IListProps {
 
 class List extends Component<IListProps> {
 
-  public render() {
+  public render(): ReactNode {
     const list = this.props.list;
 
     return (
