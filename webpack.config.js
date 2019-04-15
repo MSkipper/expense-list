@@ -38,7 +38,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: [
-          !isProduction && {
+          {
             loader: "babel-loader",
             query: {
               babelrc: true,
