@@ -1,4 +1,4 @@
-# expense-list
+# List of expenses
 react/emotion/mobx
 
 # Run app:
